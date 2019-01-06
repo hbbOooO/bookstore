@@ -13,14 +13,13 @@ public class ManagerDAO extends BaseHibernateDAO{
 	private Log log = LogFactory.getLog(ManagerDAO.class);
 	
 	public Manager findById(String managerid){
-		SessionFactory sf=new Configuration().configure().buildSessionFactory(); 
-		Session session=sf.openSession(); 
+		
 		Manager manager=new Manager();
 		try{
-			manager=(Manager)session.get(Manager.class,managerid);
+			manager=(Manager)getSession().get(Manager.class,managerid);
 		}
 		finally{
-			session.close();
+			getSession().close();
 		}
 		return manager;
 	}
@@ -39,12 +38,11 @@ public class ManagerDAO extends BaseHibernateDAO{
   
   public void save(Manager instance) { 
 	    log.debug("saving manager instance"); 
-	    SessionFactory sf= new Configuration().configure().buildSessionFactory(); 
-	    Session session=sf.openSession(); 
+	    
 	    try { 
-	    Transaction tx=session.beginTransaction();
-		session.save(instance); 
-		session.flush(); 
+	    Transaction tx=getSession().beginTransaction();
+	    getSession().save(instance); 
+	    getSession().flush(); 
 		log.debug("save successful"); 
 		tx.commit();
 	    } 
@@ -53,19 +51,18 @@ public class ManagerDAO extends BaseHibernateDAO{
 			throw re; 
 		} 
 	    finally{ 
-	    	session.close(); 
+	    	getSession().close(); 
 	    } 
   }
 
   
   public void update(Manager instance) {
 	log.debug("update manager instance"); 
-	SessionFactory sf= new Configuration().configure().buildSessionFactory(); 
-	Session session=sf.openSession(); 
+	
 	try { 
-	Transaction tx=session.beginTransaction();
-	session.update(instance); 
-	session.flush(); 
+	Transaction tx=getSession().beginTransaction();
+	getSession().update(instance); 
+	getSession().flush(); 
 	log.debug("update successful"); 
 	tx.commit();
 	} 
@@ -74,7 +71,7 @@ public class ManagerDAO extends BaseHibernateDAO{
 		throw re; 
 	} 
 	finally{ 
-		session.close(); 
+		getSession().close(); 
 	} 
 	    
 	  
@@ -82,12 +79,11 @@ public class ManagerDAO extends BaseHibernateDAO{
   
   public void delete(Manager instance) {
   	log.debug("delete manager instance"); 
-	SessionFactory sf= new Configuration().configure().buildSessionFactory(); 
-	Session session=sf.openSession(); 
+	
 	try { 
-	Transaction tx=session.beginTransaction();
-	session.delete(instance); 
-	session.flush(); 
+	Transaction tx=getSession().beginTransaction();
+	getSession().delete(instance); 
+	getSession().flush(); 
 	log.debug("delete successful"); 
 	tx.commit();
 	} 
@@ -96,7 +92,7 @@ public class ManagerDAO extends BaseHibernateDAO{
 		throw re; 
 	} 
 	finally{ 
-		session.close(); 
+		getSession().close(); 
 	} 
 	    
   }

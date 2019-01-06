@@ -13,14 +13,13 @@ import cn.edu.zjut.po.*;
 		private Log log = LogFactory.getLog(SellerAddressDAO.class);
 		public Shoppingcart findById(int customerId){
 			log.debug("finding Shoppingcart instance by sgoppingcartid"); 
-			SessionFactory sf=new Configuration().configure().buildSessionFactory(); 
-			Session session=sf.openSession(); 
+			
 			Shoppingcart customer=new Shoppingcart();
 			try{
-				customer=(Shoppingcart)session.get(Shoppingcart.class,customerId);
+				customer=(Shoppingcart)getSession().get(Shoppingcart.class,customerId);
 			}
 			finally{
-				session.close();
+				getSession().close();
 			}
 			return customer;
 		}
@@ -39,52 +38,49 @@ import cn.edu.zjut.po.*;
 	  //Ôö
 	  public void save(Shoppingcart instance) { 
 		    log.debug("saving Shoppingcart instance"); 
-		    SessionFactory sf= new Configuration().configure().buildSessionFactory(); 
-		    Session session=sf.openSession(); 
+		    
 		    try { 
-		    Transaction tx=session.beginTransaction();
-			session.save(instance); 
-			session.flush(); 
+		    Transaction tx=getSession().beginTransaction();
+		    getSession().save(instance); 
+		    getSession().flush(); 
 			log.debug("save successful"); 
 			tx.commit();
 		    	} 
 		    catch (RuntimeException re) { 
 			log.error("save failed", re); 
 			throw re; } 
-		    finally{ session.close(); } }
+		    finally{ getSession().close(); } }
 
 	  //¸Ä
 	  public void update(Shoppingcart instance) {
 		  log.debug("update Shoppingcart instance"); 
-		    SessionFactory sf= new Configuration().configure().buildSessionFactory(); 
-		    Session session=sf.openSession(); 
+		    
 		    try { 
-		    Transaction tx=session.beginTransaction();
-			session.update(instance); 
-			session.flush(); 
+		    Transaction tx=getSession().beginTransaction();
+		    getSession().update(instance); 
+		    getSession().flush(); 
 			log.debug("update successful"); 
 			tx.commit();
 		    	} 
 		    catch (RuntimeException re) { 
 			log.error("update failed", re); 
 			throw re; } 
-		    finally{ session.close(); }
+		    finally{ getSession().close(); }
 	  } 
 	  //É¾
 	  public void delete(Shoppingcart instance) {
 		  log.debug("delete Shoppingcart instance"); 
-		    SessionFactory sf= new Configuration().configure().buildSessionFactory(); 
-		    Session session=sf.openSession(); 
+		    
 		    try { 
-		    Transaction tx=session.beginTransaction();
-			session.delete(instance); 
-			session.flush(); 
+		    Transaction tx=getSession().beginTransaction();
+		    getSession().delete(instance); 
+		    getSession().flush(); 
 			log.debug("delete successful"); 
 			tx.commit();
 		    	} 
 		    catch (RuntimeException re) { 
 			log.error("delete failed", re); 
 			throw re; } 
-		    finally{ session.close(); }
+		    finally{ getSession().close(); }
 	  }
 	}

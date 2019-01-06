@@ -13,14 +13,13 @@ import cn.edu.zjut.po.Customer;
 	private Log log = LogFactory.getLog(CustomerDAO.class);
 	
 	public Customer findById(String account){
-		SessionFactory sf=new Configuration().configure().buildSessionFactory(); 
-		Session session=sf.openSession(); 
+		 
 		Customer customer=new Customer();
 		try{
-			customer=(Customer)session.get(Customer.class,account);
+			customer=(Customer)getSession().get(Customer.class,account);
 		}
 		finally{
-			session.close();
+			getSession().close();
 		}
 		return customer;
 	}
@@ -38,34 +37,32 @@ import cn.edu.zjut.po.Customer;
     } 
   
   public void save(Customer instance) { 
-	    log.debug("saving customer instance"); 
-	    SessionFactory sf= new Configuration().configure().buildSessionFactory(); 
-	    Session session=sf.openSession(); 
-	    try { 
-	    Transaction tx=session.beginTransaction();
-		session.save(instance); 
-		session.flush(); 
-		log.debug("save successful"); 
-		tx.commit();
-	    } 
-	    catch (RuntimeException re) { 
-			log.error("save failed", re); 
-			throw re; 
-		} 
-	    finally{ 
-	    	session.close(); 
-	    } 
+//	    log.debug("saving customer instance"); 
+//	    
+//	    try { 
+//	    Transaction tx=getSession().beginTransaction();
+	    getSession().save(instance); 
+	    getSession().flush(); 
+//		log.debug("save successful"); 
+//		tx.commit();
+//	    } 
+//	    catch (RuntimeException re) { 
+//			log.error("save failed", re); 
+//			throw re; 
+//		} 
+//	    finally{ 
+//	    	getSession().close(); 
+//	    } 
   }
 
   
   public void update(Customer instance) {
 	log.debug("update customer instance"); 
-	SessionFactory sf= new Configuration().configure().buildSessionFactory(); 
-	Session session=sf.openSession(); 
+	
 	try { 
-	Transaction tx=session.beginTransaction();
-	session.update(instance); 
-	session.flush(); 
+	Transaction tx=getSession().beginTransaction();
+	getSession().update(instance); 
+	getSession().flush(); 
 	log.debug("update successful"); 
 	tx.commit();
 	} 
@@ -74,7 +71,7 @@ import cn.edu.zjut.po.Customer;
 		throw re; 
 	} 
 	finally{ 
-		session.close(); 
+		getSession().close(); 
 	} 
 	    
 	  //getSession().update(instance); 
@@ -82,12 +79,11 @@ import cn.edu.zjut.po.Customer;
   
   public void delete(Customer instance) {
   	log.debug("delete customer instance"); 
-	SessionFactory sf= new Configuration().configure().buildSessionFactory(); 
-	Session session=sf.openSession(); 
+	
 	try { 
-	Transaction tx=session.beginTransaction();
-	session.delete(instance); 
-	session.flush(); 
+	Transaction tx=getSession().beginTransaction();
+	getSession().delete(instance); 
+	getSession().flush(); 
 	log.debug("delete successful"); 
 	tx.commit();
 	} 
@@ -96,7 +92,7 @@ import cn.edu.zjut.po.Customer;
 		throw re; 
 	} 
 	finally{ 
-		session.close(); 
+		getSession().close(); 
 	} 
 	  //getSession().delete(instance);   
   }

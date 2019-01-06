@@ -13,14 +13,13 @@ public class CustomerServiceDAO extends BaseHibernateDAO{
 	private Log log = LogFactory.getLog(CustomerServiceDAO.class);
 	
 	public CustomerService findById(int customerserviceid){
-		SessionFactory sf=new Configuration().configure().buildSessionFactory(); 
-		Session session=sf.openSession(); 
+		
 		CustomerService customerService=new CustomerService();
 		try{
-			customerService=(CustomerService)session.get(CustomerService.class,customerserviceid);
+			customerService=(CustomerService)getSession().get(CustomerService.class,customerserviceid);
 		}
 		finally{
-			session.close();
+			getSession().close();
 		}
 		return customerService;
 	}
@@ -39,12 +38,11 @@ public class CustomerServiceDAO extends BaseHibernateDAO{
   
   public void save(CustomerService instance) { 
 	    log.debug("saving customerService instance"); 
-	    SessionFactory sf= new Configuration().configure().buildSessionFactory(); 
-	    Session session=sf.openSession(); 
+	    
 	    try { 
-	    Transaction tx=session.beginTransaction();
-		session.save(instance); 
-		session.flush(); 
+	    Transaction tx=getSession().beginTransaction();
+	    getSession().save(instance); 
+	    getSession().flush(); 
 		log.debug("save successful"); 
 		tx.commit();
 	    } 
@@ -53,19 +51,18 @@ public class CustomerServiceDAO extends BaseHibernateDAO{
 			throw re; 
 		} 
 	    finally{ 
-	    	session.close(); 
+	    	getSession().close(); 
 	    } 
   }
 
   
   public void update(CustomerService instance) {
 	log.debug("update customerService instance"); 
-	SessionFactory sf= new Configuration().configure().buildSessionFactory(); 
-	Session session=sf.openSession(); 
+	
 	try { 
-	Transaction tx=session.beginTransaction();
-	session.update(instance); 
-	session.flush(); 
+	Transaction tx=getSession().beginTransaction();
+	getSession().update(instance); 
+	getSession().flush(); 
 	log.debug("update successful"); 
 	tx.commit();
 	} 
@@ -74,7 +71,7 @@ public class CustomerServiceDAO extends BaseHibernateDAO{
 		throw re; 
 	} 
 	finally{ 
-		session.close(); 
+		getSession().close(); 
 	} 
 	    
 	  
@@ -82,12 +79,11 @@ public class CustomerServiceDAO extends BaseHibernateDAO{
   
   public void delete(CustomerService instance) {
   	log.debug("delete customerService instance"); 
-	SessionFactory sf= new Configuration().configure().buildSessionFactory(); 
-	Session session=sf.openSession(); 
+	
 	try { 
-	Transaction tx=session.beginTransaction();
-	session.delete(instance); 
-	session.flush(); 
+	Transaction tx=getSession().beginTransaction();
+	getSession().delete(instance); 
+	getSession().flush(); 
 	log.debug("delete successful"); 
 	tx.commit();
 	} 
@@ -96,7 +92,7 @@ public class CustomerServiceDAO extends BaseHibernateDAO{
 		throw re; 
 	} 
 	finally{ 
-		session.close(); 
+		getSession().close(); 
 	} 
 	    
   }

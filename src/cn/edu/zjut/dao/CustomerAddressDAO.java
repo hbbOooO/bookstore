@@ -14,14 +14,13 @@ import cn.edu.zjut.po.CustomerAddress;
   public class CustomerAddressDAO extends BaseHibernateDAO{ 
 	private Log log = LogFactory.getLog(CustomerAddress.class);
 	public CustomerAddress findById(String customeraddressId){
-		SessionFactory sf=new Configuration().configure().buildSessionFactory(); 
-		Session session=sf.openSession(); 
+		
 		CustomerAddress customeraddress=new CustomerAddress();
 		try{
-			customeraddress=(CustomerAddress)session.get(CustomerAddress.class,customeraddressId);
+			customeraddress=(CustomerAddress)getSession().get(CustomerAddress.class,customeraddressId);
 		}
 		finally{
-			session.close();
+			getSession().close();
 		}
 		return customeraddress;
 	}
@@ -40,50 +39,47 @@ import cn.edu.zjut.po.CustomerAddress;
   //��
   public void save(CustomerAddress instance) { 
 	    log.debug("saving customeraddress instance"); 
-	    SessionFactory sf= new Configuration().configure().buildSessionFactory(); 
-	    Session session=sf.openSession(); 
+	    
 	    try { 
-	    Transaction tx=session.beginTransaction();
-		session.save(instance); 
-		session.flush(); 
+	    Transaction tx=getSession().beginTransaction();
+	    getSession().save(instance); 
+	    getSession().flush(); 
 		log.debug("save successful"); 
 		tx.commit();
 	    	} 
 	    catch (RuntimeException re) { 
 		log.error("save failed", re); 
 		throw re; } 
-	    finally{ session.close(); } }
+	    finally{ getSession().close(); } }
 
   //��
   public void update(CustomerAddress instance) {
 	    log.debug("updating customer instance"); 
-	    SessionFactory sf= new Configuration().configure().buildSessionFactory(); 
-	    Session session=sf.openSession(); 
+	    
 	    try { 
-	    Transaction tx=session.beginTransaction();
-		session.update(instance); 
-		session.flush(); 
+	    Transaction tx=getSession().beginTransaction();
+	    getSession().update(instance); 
+	    getSession().flush(); 
 		log.debug("update successful"); 
 		tx.commit();
 	    	} 
 	    catch (RuntimeException re) { 
 		log.error("update failed", re); 
 		throw re; } 
-	    finally{ session.close(); } }
+	    finally{ getSession().close(); } }
   //ɾ
   public void delete(CustomerAddress instance) {
 	    log.debug("deleting customer instance"); 
-	    SessionFactory sf= new Configuration().configure().buildSessionFactory(); 
-	    Session session=sf.openSession(); 
+	    
 	    try { 
-	    Transaction tx=session.beginTransaction();
-		session.delete(instance); 
-		session.flush(); 
+	    Transaction tx=getSession().beginTransaction();
+	    getSession().delete(instance); 
+	    getSession().flush(); 
 		log.debug("delete successful"); 
 		tx.commit();
 	    	} 
 	    catch (RuntimeException re) { 
 		log.error("delete failed", re); 
 		throw re; } 
-	    finally{ session.close(); } }
+	    finally{ getSession().close(); } }
 }

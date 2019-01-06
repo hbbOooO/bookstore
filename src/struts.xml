@@ -6,5 +6,9 @@
 			<result name="loginSuccess">/loginSuccess.jsp</result>
 			<result name="loginFail">/loginFail.jsp</result>
 		</action>
+		<action name="register" class="cn.edu.zjut.action" method="register">
+			<result name="registerSuccess">/registerSuccess.jsp</result>
+			<result name="registerFail">/registerFail.jsp</result>
+		</action>
 	</package> 
 </struts>    

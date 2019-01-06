@@ -13,14 +13,13 @@ public class SellerDAO extends BaseHibernateDAO{
 	private Log log = LogFactory.getLog(SellerDAO.class);
 	public Seller findById(String customerId){
 		log.debug("finding seller instance by account"); 
-		SessionFactory sf=new Configuration().configure().buildSessionFactory(); 
-		Session session=sf.openSession(); 
+		
 		Seller customer=new Seller();
 		try{
-			customer=(Seller)session.get(Seller.class,customerId);
+			customer=(Seller)getSession().get(Seller.class,customerId);
 		}
 		finally{
-			session.close();
+			getSession().close();
 		}
 		return customer;
 	}
@@ -39,52 +38,49 @@ public class SellerDAO extends BaseHibernateDAO{
   //Ôö
   public void save(Seller instance) { 
 	    log.debug("saving seller instance"); 
-	    SessionFactory sf= new Configuration().configure().buildSessionFactory(); 
-	    Session session=sf.openSession(); 
+	    
 	    try { 
-	    Transaction tx=session.beginTransaction();
-		session.save(instance); 
-		session.flush(); 
+	    Transaction tx=getSession().beginTransaction();
+	    getSession().save(instance); 
+	    getSession().flush(); 
 		log.debug("save successful"); 
 		tx.commit();
 	    	} 
 	    catch (RuntimeException re) { 
 		log.error("save failed", re); 
 		throw re; } 
-	    finally{ session.close(); } }
+	    finally{ getSession().close(); } }
 
   //¸Ä
   public void update(Seller instance) { 
 		    log.debug("update seller instance"); 
-		    SessionFactory sf= new Configuration().configure().buildSessionFactory(); 
-		    Session session=sf.openSession(); 
+		    
 		    try { 
-		    Transaction tx=session.beginTransaction();
-			session.update(instance); 
-			session.flush(); 
+		    Transaction tx=getSession().beginTransaction();
+		    getSession().update(instance); 
+		    getSession().flush(); 
 			log.debug("update successful"); 
 			tx.commit();
 		    	} 
 		    catch (RuntimeException re) { 
 			log.error("update failed", re); 
 			throw re; } 
-		    finally{ session.close(); }
+		    finally{ getSession().close(); }
   } 
   //É¾
   public void delete(Seller instance) {
 	  log.debug("delete seller instance"); 
-	    SessionFactory sf= new Configuration().configure().buildSessionFactory(); 
-	    Session session=sf.openSession(); 
+	    
 	    try { 
-	    Transaction tx=session.beginTransaction();
-		session.delete(instance); 
-		session.flush(); 
+	    Transaction tx=getSession().beginTransaction();
+	    getSession().delete(instance); 
+	    getSession().flush(); 
 		log.debug("delete successful"); 
 		tx.commit();
 	    	} 
 	    catch (RuntimeException re) { 
 		log.error("delete failed", re); 
 		throw re; } 
-	    finally{ session.close(); } 
+	    finally{ getSession().close(); } 
   }
 }
